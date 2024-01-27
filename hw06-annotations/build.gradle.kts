@@ -1,6 +1,5 @@
 dependencies {
-    implementation("org.assertj:assertj-core:3.24.2")
-    implementation("org.assertj:assertj-core:3.24.2")
+    implementation("org.assertj:assertj-core")
     testImplementation ("org.junit.jupiter:junit-jupiter-api")
     testImplementation ("org.junit.jupiter:junit-jupiter-engine")
     testImplementation ("org.assertj:assertj-core")

@@ -6,6 +6,8 @@ plugins {
 
 dependencies {
     implementation ("com.google.guava:guava")
+    implementation("org.assertj:assertj-core:3.24.2")
+    implementation("org.assertj:assertj-core:3.24.2")
 }
 
 tasks {
