@@ -26,3 +26,4 @@ pluginManagement {
         id("com.diffplug.spotless") version spotless // Для форматирования кода
     }
 }
+include("hw12-solid")
