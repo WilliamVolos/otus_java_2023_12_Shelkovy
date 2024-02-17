@@ -8,9 +8,8 @@ import ru.otus.aop.annotations.Log;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class IoProxy {
     private static final Logger logger = LoggerFactory.getLogger(IoProxy.class);
@@ -26,24 +25,20 @@ public class IoProxy {
         private final TargetInterface myClass;
 
         // Кэшируем повторные вызовы методов
-        private final Map<Method, Boolean> methods = new HashMap<>();
+        private final Set<Method> methods;
 
         DemoInvocationHandler(TargetInterface myClass) {
             this.myClass = myClass;
+            methods = Arrays.stream(Reflection.getMethodsByAnnotation(myClass.getClass(), Log.class))
+                        .collect(Collectors.toSet());
         }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-            Boolean isAnnotation = methods.get(method);
-
-            if (isAnnotation == null){
-                isAnnotation = (Arrays.stream(Reflection.getMethodsByAnnotation(myClass.getClass(), Log.class))
-                   .filter(m-> (m.getName().equals(method.getName()) && Arrays.equals(m.getParameterTypes(), method.getParameterTypes())))
-                   .count() == 1);
-
-                methods.put(method, isAnnotation);
-            };
+            boolean isAnnotation = (methods.stream()
+               .filter(m-> (m.getName().equals(method.getName()) && Arrays.equals(m.getParameterTypes(), method.getParameterTypes())))
+               .count() == 1);
 
             if (isAnnotation){
                 logger.info("executed method: {}, params: {}", method.getName(), Arrays.toString(args));
