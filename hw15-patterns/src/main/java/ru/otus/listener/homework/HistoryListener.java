@@ -6,6 +6,8 @@ import java.util.Optional;
 import ru.otus.listener.Listener;
 import ru.otus.model.Message;
 
+import static java.util.Collections.copy;
+
 public class HistoryListener implements Listener, HistoryReader {
     private final Map<Long, Message> historyMap = new HashMap<>();
 
