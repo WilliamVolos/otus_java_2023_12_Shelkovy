@@ -1,12 +1,11 @@
 package ru.otus.listener.homework;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 import ru.otus.listener.Listener;
 import ru.otus.model.Message;
 
-import static java.util.Collections.copy;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class HistoryListener implements Listener, HistoryReader {
     private final Map<Long, Message> historyMap = new HashMap<>();
