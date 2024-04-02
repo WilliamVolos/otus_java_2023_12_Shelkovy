@@ -25,7 +25,7 @@ public class DbServiceDemo {
         var dbUserName = configuration.getProperty("hibernate.connection.username");
         var dbPassword = configuration.getProperty("hibernate.connection.password");
 
-//        new MigrationsExecutorFlyway(dbUrl, dbUserName, dbPassword).executeMigrations();
+        new MigrationsExecutorFlyway(dbUrl, dbUserName, dbPassword).executeMigrations();
 
         var sessionFactory = HibernateUtils.buildSessionFactory(configuration, Address.class, Client.class, Phone.class);
 

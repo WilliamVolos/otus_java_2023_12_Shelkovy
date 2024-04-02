@@ -77,7 +77,6 @@ class HomeworkTest {
         }
     }
 
-    @Disabled("Удалить при выполнении ДЗ")
     @Test
     void testForHomeworkRequirementsForClientReferences() throws Exception {
         var client = new Client(
@@ -88,7 +87,6 @@ class HomeworkTest {
         assertThatClientHasCorrectReferences(client);
     }
 
-    @Disabled("Удалить при выполнении ДЗ")
     @Test
     void testForHomeworkRequirementsForClonedClientReferences() throws Exception {
         var client = new Client(

@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +24,9 @@ public class Client implements Cloneable {
     @Column(name = "name")
     private String name;
 
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "address_id", nullable = true)
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private Address address;
 
-//    @Fetch(FetchMode.SUBSELECT)
-//    @JoinColumn(name = "client_id", nullable = false)
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Phone> phones;
 
@@ -54,36 +48,32 @@ public class Client implements Cloneable {
         this.id = id;
         this.name = name;
         this.address = address;
+        if(address != null){
+            address.setClient(this);
+        }
         if(phones == null){
             this.phones = new ArrayList<>();
-        }else
+        }else {
             this.phones = phones;
+            phones.forEach(ph -> ph.setClient(this));
+        }
     }
 
     @Override
     @SuppressWarnings({"java:S2975", "java:S1182"})
     public Client clone() {
         Address copyaddress = null;
-
-        Client copyClient = new Client( this.id,
-                                        this.name,
-                                        null,
-                                        null);
-
-        if (this.getAddress() != null){
-            copyaddress = new Address(this.address.getId(), this.address.getStreet(), copyClient);
-            copyClient.setAddress(copyaddress);
+        if (this.address != null){
+            copyaddress = new Address(this.address.getId(), this.address.getStreet());
         }
 
-        List<Phone> copyPhones;
+        List<Phone> copyPhones = new ArrayList<>();
         if (this.getPhones().size() > 0) {
             copyPhones = this.phones.stream()
-                    .map(phone -> new Phone(phone.getId(), phone.getNumber(), copyClient)).toList();
-        } else {
-            copyPhones = new ArrayList<>();
+                    .map(phone -> new Phone(phone.getId(), phone.getNumber())).toList();
         }
-        copyClient.setPhones(copyPhones);
-        return copyClient;
+
+        return new Client( this.id, this.name, copyaddress, copyPhones);
     }
 
     @Override

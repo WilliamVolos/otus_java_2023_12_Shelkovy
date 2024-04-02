@@ -1,5 +1,7 @@
 package ru.otus.core.repository;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import org.hibernate.Session;
@@ -43,7 +45,6 @@ public class DataTemplateHibernate<T> implements DataTemplate<T> {
 
     @Override
     public T update(Session session, T object) {
-//        session.detach(object);
         return session.merge(object);
     }
 }
