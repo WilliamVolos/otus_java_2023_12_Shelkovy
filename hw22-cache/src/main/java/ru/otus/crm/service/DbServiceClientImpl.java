@@ -31,7 +31,7 @@ public class DbServiceClientImpl implements DBServiceClient {
                 var savedClient = clientDataTemplate.insert(session, clientCloned);
                 log.info("Добавили в Базу: {}", savedClient.getId());
 
-                if(hwCache != null) {
+                if (hwCache != null) {
                     hwCache.put(savedClient.getId().toString(), savedClient);
                     log.info("Положили в Кэш: {}", savedClient.getId());
                 }
@@ -40,7 +40,7 @@ public class DbServiceClientImpl implements DBServiceClient {
             var savedClient = clientDataTemplate.update(session, clientCloned);
             log.info("Обновили в Базе: {}", savedClient.getId());
 
-            if(hwCache != null) {
+            if (hwCache != null) {
                 hwCache.remove(savedClient.getId().toString());
                 hwCache.put(savedClient.getId().toString(), savedClient);
                 log.info("Обновили в Кэше: {}", savedClient.getId());
@@ -55,11 +55,11 @@ public class DbServiceClientImpl implements DBServiceClient {
             Client getClient = null;
             Optional<Client> clientOptional;
 
-            if(hwCache != null) {
+            if (hwCache != null) {
                 getClient = hwCache.get(Long.toString(id));
             }
 
-            if(getClient == null){
+            if (getClient == null) {
                 clientOptional = clientDataTemplate.findById(session, id);
                 if (clientOptional.isPresent()&&(hwCache != null)) {
                     hwCache.put(clientOptional.get().getId().toString(), clientOptional.get());

@@ -47,7 +47,7 @@ public class DbServiceDemo {
         List<Long> ids = new ArrayList<>();
 
         // Добавляем 100 полных структур клиентов в базу
-        for(int i=0; i<100; i++){
+        for (int i=0; i<100; i++) {
             var client = new Client(null, "Vasya", new Address(null, "AnyStreet"), List.of(new Phone(null, "13-555-22"),
                     new Phone(null, "14-666-333")));
             ids.add(dbServiceClientNoCache.saveClient(client).getId());
@@ -56,7 +56,7 @@ public class DbServiceDemo {
         // Затем извлекаем их из базы в обратном порядке
         Collections.reverse(ids);
         log.info("Извлекаем клиентов");
-        for (var id : ids){
+        for (var id : ids) {
             log.info(dbServiceClientNoCache.getClient(id).map(c -> c.toString()+c.getAddress()+c.getPhones()).orElse("Пусто"));
         }
         long deltaNoCache = System.currentTimeMillis() - startTime;
@@ -72,7 +72,7 @@ public class DbServiceDemo {
         List<Long> idCaches = new ArrayList<>();
 
         // Добавляем 100 полных структур клиентов в базу
-        for(int i=0; i<100; i++){
+        for (int i=0; i<100; i++) {
             var client = new Client(null, "Vasya", new Address(null, "AnyStreet"), List.of(new Phone(null, "13-555-22"),
                     new Phone(null, "14-666-333")));
             idCaches.add(dbServiceClientCache.saveClient(client).getId());
@@ -81,7 +81,7 @@ public class DbServiceDemo {
         // Затем извлекаем их в обратном порядке
         Collections.reverse(idCaches);
         log.info("Извлекаем клиентов");
-        for (var id : idCaches){
+        for (var id : idCaches) {
             log.info(dbServiceClientCache.getClient(id).map(c -> c.toString()+c.getAddress()+c.getPhones()).orElse("Пусто"));
         }
         long deltaCache = System.currentTimeMillis() - cacheTime;

@@ -48,10 +48,10 @@ public class Client implements Cloneable {
         this.id = id;
         this.name = name;
         this.address = address;
-        if(address != null){
+        if (address != null) {
             address.setClient(this);
         }
-        if(phones == null){
+        if (phones == null) {
             this.phones = new ArrayList<>();
         }else {
             this.phones = phones;
@@ -63,7 +63,7 @@ public class Client implements Cloneable {
     @SuppressWarnings({"java:S2975", "java:S1182"})
     public Client clone() {
         Address copyaddress = null;
-        if (this.address != null){
+        if (this.address != null) {
             copyaddress = new Address(this.address.getId(), this.address.getStreet());
         }
 
