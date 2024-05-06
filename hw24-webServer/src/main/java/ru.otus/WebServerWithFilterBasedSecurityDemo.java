@@ -54,10 +54,6 @@ public class WebServerWithFilterBasedSecurityDemo {
 
         var dbServiceClient = new DbServiceClientImpl(transactionManager, clientTemplate);
 
-        var client = new Client(null, "Vasya", new Address(null, "AnyStreet"), List.of(new Phone(null, "13-555-22")));
-
-        dbServiceClient.saveClient(client);
-
         UserDao userDao = new InMemoryUserDao();
         Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
         TemplateProcessor templateProcessor = new TemplateProcessorImpl(TEMPLATES_DIR);
