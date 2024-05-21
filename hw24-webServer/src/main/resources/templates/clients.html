@@ -1,0 +1,83 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Добавление нового клиента</title>
+    <script>
+        function saveClient() {
+            const clientNameTextBox = document.getElementById('clientNameTextBox');
+            const addressTextBox = document.getElementById('addressTextBox');
+            const phoneTextBox = document.getElementById('phoneTextBox');
+            const clientDataContainer = document.getElementById('clientDataContainer');
+
+            var data = {
+                name: clientNameTextBox.value,
+                address: addressTextBox.value,
+                phone: phoneTextBox.value
+            };
+            clientNameTextBox.value = '';
+            addressTextBox.value = '';
+            phoneTextBox.value = '';
+
+            fetch('api/clients', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(client => clientDataContainer.innerHTML = JSON.stringify(client));
+        }
+    </script>
+
+    <title>Полный список клиентов</title>
+    <script>
+        function getAllClients() {
+            location.reload(true);
+        }
+    </script>
+</head>
+
+<body>
+<h4>Добавление нового клиента</h4>
+
+Имя     <input type="text" id = "clientNameTextBox" placeholder="Имя клиента"><Br><Br>
+Адрес   <input type="text" id = "addressTextBox" placeholder="Адрес"><Br><Br>
+Телефон <input type="text" id = "phoneTextBox" placeholder="Телефон"><Br><Br>
+
+<button onclick="saveClient()">Добавить клиента</button><Br><Br>
+<pre id = "clientDataContainer"></pre>
+
+<h4>Полный список клиентов</h4>
+
+<button onclick="getAllClients()">Обновить</button><Br><Br>
+
+<table style="width: 400px">
+    <thead>
+        <tr>
+            <td style="width: 50px">Id</td>
+            <td style="width: 100px">Имя</td>
+            <td style="width: 150px">Адрес</td>
+            <td style="width: 100px">Телефон</td>
+        </tr>
+    </thead>
+    <tbody>
+        <#list allClients as client>
+            <tr>
+                <td>${client.id}</td>
+                <td>${client.name}</td>
+                <#if client.address??>
+                    <td>${client.address}</td>
+                <#else>
+                    <td></td>
+                </#if>
+                <#if client.phones[0]??>
+                    <td>${client.phones[0]}</td>
+                <#else>
+                    <td></td>
+                </#if>
+            </tr>
+        </#list>
+    </tbody>
+</table>
+</body>
+</html>
