@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import ru.otus.crm.model.Address;
 import ru.otus.crm.model.Client;
 import ru.otus.crm.model.Phone;
-import ru.otus.crm.service.DBServiceClient;
+import ru.otus.service.DBServiceClient;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

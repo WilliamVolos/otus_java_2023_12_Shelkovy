@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Работа с клиентами</title>
+    <script>
+        function saveClient() {
+            const clientNameTextBox = document.getElementById('clientNameTextBox');
+            const addressTextBox = document.getElementById('addressTextBox');
+            const phoneTextBox = document.getElementById('phoneTextBox');
+            const clientDataContainer = document.getElementById('clientDataContainer');
+
+            var data = {
+                name: clientNameTextBox.value,
+                address: addressTextBox.value,
+                phones: phoneTextBox.value
+            };
+
+            fetch('api/clients', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(client => clientDataContainer.innerHTML = JSON.stringify(client));
+
+            clientNameTextBox.value = '';
+            addressTextBox.value = '';
+            phoneTextBox.value = '';
+        }
+    </script>
+
+    <title>Полный список клиентов</title>
+    <script>
+        function getAllClients() {
+            location.reload(true);
+        }
+    </script>
+
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        .clients, .clients td {
+            border: 1px solid lightgray;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            display: block;
+        }
+
+        input {
+            width: 150px;
+        }
+
+        select {
+            width: 154px;
+        }
+
+        button {
+            width: 250px;
+        }
+
+        .controls-container {
+            margin-bottom: 5px;
+        }
+
+        .single-button-container {
+            margin-left: 158px;
+        }
+
+        h3 {
+            background-image: url("../static/listmark.png");
+            background-repeat: no-repeat;
+            padding: 2px;
+            padding-left: 30px;
+        }
+    </style>
+
+    <style type="text/css" th:inline="text">
+        [[h3]] {
+            background-image: url([[@{/listmark.png}]]);
+            background-repeat: no-repeat;
+            padding: 2px;
+            padding-left: 30px;
+        }
+    </style>
+</head>
+
+<body>
+<h3>Данные о системе:</h3>
+<span th:text="${osData}"></span>
+
+<h3>Добавление нового клиента</h3>
+
+Имя     <input type="text" id = "clientNameTextBox" placeholder="Имя клиента"><Br><Br>
+Адрес   <input type="text" id = "addressTextBox" placeholder="Адрес"><Br><Br>
+Телефон <input type="text" id = "phoneTextBox" placeholder="Телефон"><Br><Br>
+
+<button onclick="saveClient()">Добавить клиента</button><Br><Br>
+<pre id = "clientDataContainer"></pre>
+
+<h3>Полный список клиентов</h3>
+
+<button onclick="getAllClients()">Обновить</button><Br><Br>
+
+<table class="clients">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Адрес</th>
+        <th>Телефон</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="client : ${allClients}">
+        <td th:text="${client.id}">1</td>
+        <td th:text="${client.name}">John Doe</td>
+        <td th:text="${client.getAddress()} ? ${client.getAddress()} : ''">ул. Московская д.12</td>
+        <td th:text="${client.getPhones().size() > 0} ? ${client.phones[0]} : ''">+7 926 526-33-19</td>
+    </tr>
+    </tbody>
+</table>
+
+<!--<table style="width: 400px">-->
+<!--    <thead>-->
+<!--        <tr>-->
+<!--            <td style="width: 50px">Id</td>-->
+<!--            <td style="width: 100px">Имя</td>-->
+<!--            <td style="width: 150px">Адрес</td>-->
+<!--            <td style="width: 100px">Телефон</td>-->
+<!--        </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--        <#list allClients as client>-->
+<!--            <tr>-->
+<!--                <td>${client.id}</td>-->
+<!--                <td>${client.name}</td>-->
+<!--                <#if client.address??>-->
+<!--                    <td>${client.address}</td>-->
+<!--                <#else>-->
+<!--                    <td></td>-->
+<!--                </#if>-->
+<!--                <#if client.phones[0]??>-->
+<!--                    <td>${client.phones[0]}</td>-->
+<!--                <#else>-->
+<!--                    <td></td>-->
+<!--                </#if>-->
+<!--            </tr>-->
+<!--        </#list>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+</body>
+</html>

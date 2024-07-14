@@ -16,8 +16,8 @@ import ru.otus.crm.dbmigrations.MigrationsExecutorFlyway;
 import ru.otus.crm.model.Address;
 import ru.otus.crm.model.Client;
 import ru.otus.crm.model.Phone;
-import ru.otus.crm.service.DBServiceClient;
-import ru.otus.crm.service.DbServiceClientImpl;
+import ru.otus.service.DBServiceClient;
+import ru.otus.service.DbServiceClientImpl;
 
 public abstract class AbstractHibernateTest {
     protected SessionFactory sessionFactory;

@@ -5,7 +5,7 @@ import org.eclipse.jetty.ee10.servlet.FilterHolder;
 import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
 import org.eclipse.jetty.ee10.servlet.ServletHolder;
 import org.eclipse.jetty.server.Handler;
-import ru.otus.crm.service.DBServiceClient;
+import ru.otus.service.DBServiceClient;
 import ru.otus.webserver.servlet.AuthorizationFilter;
 import ru.otus.webserver.servlet.LoginServlet;
 import ru.otus.webserver.services.TemplateProcessor;
