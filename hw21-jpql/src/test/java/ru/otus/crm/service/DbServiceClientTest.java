@@ -1,7 +1,6 @@
 package ru.otus.crm.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.otus.base.AbstractHibernateTest;
@@ -31,7 +30,7 @@ class DbServiceClientTest extends AbstractHibernateTest {
 
         // then
         var loadedSavedClient = dbServiceClient.getClient(savedClient.getId());
-        assertThat(loadedSavedClient)
+        Assertions.assertThat(loadedSavedClient)
                 .isPresent()
                 .get()
                 .usingRecursiveComparison()
@@ -44,14 +43,14 @@ class DbServiceClientTest extends AbstractHibernateTest {
 
         // then
         var loadedClient = dbServiceClient.getClient(savedClientUpdated.getId());
-        assertThat(loadedClient).isPresent().get().usingRecursiveComparison().isEqualTo(savedClientUpdated);
+        Assertions.assertThat(loadedClient).isPresent().get().usingRecursiveComparison().isEqualTo(savedClientUpdated);
         System.out.println(loadedClient);
 
         // when
         var clientList = dbServiceClient.findAll();
 
         // then
-        assertThat(clientList).hasSize(1);
-        assertThat(clientList.get(0)).usingRecursiveComparison().isEqualTo(loadedClient.get());
+        Assertions.assertThat(clientList).hasSize(1);
+        Assertions.assertThat(clientList.get(0)).usingRecursiveComparison().isEqualTo(loadedClient.get());
     }
 }

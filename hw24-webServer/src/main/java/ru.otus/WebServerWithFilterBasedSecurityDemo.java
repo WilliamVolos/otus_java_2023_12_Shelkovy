@@ -20,8 +20,6 @@ import ru.otus.webserver.services.TemplateProcessorImpl;
 import ru.otus.webserver.services.UserAuthService;
 import ru.otus.webserver.services.UserAuthServiceImpl;
 
-import java.util.List;
-
 /*
     // Стартовая страница
     http://localhost:8080
