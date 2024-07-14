@@ -1,4 +1,4 @@
-package ru.otus.service;
+package ru.otus.crm.service;
 
 import java.util.List;
 import java.util.Optional;

@@ -10,7 +10,7 @@ import ru.otus.crm.dbmigrations.MigrationsExecutorFlyway;
 import ru.otus.crm.model.Address;
 import ru.otus.crm.model.Client;
 import ru.otus.crm.model.Phone;
-import ru.otus.service.DbServiceClientImpl;
+import ru.otus.crm.service.DbServiceClientImpl;
 import ru.otus.webserver.dao.InMemoryUserDao;
 import ru.otus.webserver.dao.UserDao;
 import ru.otus.webserver.server.ClientsWebServer;

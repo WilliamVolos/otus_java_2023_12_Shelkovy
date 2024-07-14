@@ -40,20 +40,6 @@ public class Client implements Cloneable {
         this.phones = phones;
     }
 
-    public Client(String name, String address, String phone) {
-        this.id = null;
-        this.name = name;
-
-        if (address != null) {
-            this.address = new Address(null, address);
-        } else
-            this.address = null;
-
-        if (phone != null) {
-            this.phones = Set.of(new Phone(null, phone, null));
-        } else this.phones = null;
-    }
-
     @PersistenceCreator
     public Client(Long id, String name, Address address, Set<Phone> phones)
     {
