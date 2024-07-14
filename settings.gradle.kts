@@ -11,6 +11,7 @@ include("hw18-jdbc")
 include("hw21-jpql")
 include("hw22-cache")
 include("hw24-webServer")
+include("hw25-di")
 
 pluginManagement {
     val jgitver: String by settings
